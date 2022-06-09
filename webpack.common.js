@@ -1,9 +1,13 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const TerserPlugin = require("terser-webpack-plugin");
 module.exports = {
-    entry: "./src/index.js",
+    entry: {
+        main: "./src/index.js",
+        vendor: "./src/vendor.js"
+    },
     plugins: [new HtmlWebpackPlugin({
         template: "./src/template.html",
-        inject: "body"
+        // inject: "body"
     })],
     module: {
         rules: [
@@ -28,4 +32,9 @@ module.exports = {
             }
         ]
     }, 
+    optimization: {
+        minimizer: [new TerserPlugin({
+          extractComments: false,
+        })],
+      },
 }
